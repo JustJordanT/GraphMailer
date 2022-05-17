@@ -17,7 +17,7 @@ jobs:
     - name: PWD
       run: pwd
     - name: change dir
-      run: cd GraphMailer/GraphMailer.Email
+      run: cd /home/runner/work/GraphMailer/GraphMailer/GraphMailer.Email
     - name: Install dependencies
       run: dotnet restore
     - name: Build
