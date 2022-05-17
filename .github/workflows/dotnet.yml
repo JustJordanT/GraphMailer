@@ -9,9 +9,23 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    env:
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'MySolution.sln'
 
+    runs-on: ubuntu-latest
+    
     steps:
+    
+    - name: Get Build Version
+      run: |
+        Import-Module .\build\GetBuildVersion.psm1
+        Write-Host $Env:GITHUB_REF
+        $version = GetBuildVersion -VersionString $Env:GITHUB_REF
+        echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+      shell: pwsh
+
+
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
@@ -19,3 +33,8 @@ jobs:
         dotnet-version: 6.0.x
     - name: make restore and build
       run: make build
+
+
+    - name: Publish
+      if: startsWith(github.ref, 'refs/heads/release')
+      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
