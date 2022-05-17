@@ -36,10 +36,10 @@ jobs:
           tag_prefix: ''
           
     - name: Pack
-      run: cd GraphMailer/GraphMailer/GraphMailer.Email.Sender ;dotnet pack -o . --no-build --no-restore -c Release -p:PackageVersion=${{ steps.bump_version.outputs.new_tag }}
+      run: dotnet pack -o . --no-build --no-restore -c Release -p:PackageVersion=${{ steps.bump_version.outputs.new_tag }}
         
     - name: Push
-      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} --skip-duplicate
+      run: dotnet nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} --skip-duplicate
         #run: dotnet nuget push ./output/*.nupkg --skip-duplicate -k ${GITHUB_TOKEN} -s https://nuget.pkg.github.com/index.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
