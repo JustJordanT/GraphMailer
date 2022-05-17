@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  PROJECT_PATH: 'GraphMailer.Email.Sender.csproj'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
+
+
 jobs:
   build:
 
@@ -22,12 +28,19 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
-    - name: make restore and build
-      run: make build
+          #    - name: make restore and build
+          #      run: make build
 
 
         #    - name: Publish
         #run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+        #
+    - name: 'Restore packages'
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+
+    - name: 'Build project'
+      run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+    
     - name: Version and Tag
       id: bump_version
       uses: mathieudutour/github-tag-action@v5.2
@@ -36,10 +49,10 @@ jobs:
           tag_prefix: ''
           
     - name: Pack
-      run: dotnet pack -o output --no-build --no-restore -c Release -p:PackageVersion=${{ steps.bump_version.outputs.new_tag }}
+      run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{ steps.bump_version.outputs.new_tag }} 
         
     - name: Push
-      run: dotnet nuget push /output/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} --skip-duplicate
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
         #run: dotnet nuget push ./output/*.nupkg --skip-duplicate -k ${GITHUB_TOKEN} -s https://nuget.pkg.github.com/index.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
