@@ -35,10 +35,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: ''
           
-      - name: Pack
-        run: dotnet pack -o output --no-build --no-restore -c Release -p:PackageVersion=${{ steps.bump_version.outputs.new_tag }}
+    - name: Pack
+      run: dotnet pack -o output --no-build --no-restore -c Release -p:PackageVersion=${{ steps.bump_version.outputs.new_tag }}
         
-      - name: Push
-        run: dotnet nuget push ./output/*.nupkg --skip-duplicate -k ${GITHUB_TOKEN} -s https://nuget.pkg.github.com/index.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push
+      run: dotnet nuget push ./output/*.nupkg --skip-duplicate -k ${GITHUB_TOKEN} -s https://nuget.pkg.github.com/index.json
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
