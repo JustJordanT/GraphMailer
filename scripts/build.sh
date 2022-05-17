@@ -8,3 +8,5 @@ cd GraphMailer.Email
 dotnet restore
 
 dotnet build
+
+cd ..
