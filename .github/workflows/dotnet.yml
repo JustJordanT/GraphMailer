@@ -17,5 +17,5 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
-    - name: make build
+    - name: make restore and build
       run: make build

@@ -3,6 +3,8 @@ set -e
 
 current_directory="$PWD"
 
-cd $(dirname $0)/..
+cd GraphMailer.Email
 
 dotnet restore
+
+dotnet build
