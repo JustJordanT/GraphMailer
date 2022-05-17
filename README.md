@@ -1,6 +1,8 @@
 # GraphMailer
 A minimal helper project for Microsoft Graph API
 
+[![.NET-Build](https://github.com/JustJordanT/GraphMailer/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JustJordanT/GraphMailer/actions/workflows/dotnet.yml)
+
 ## Current Functionality
 
 ### EmailSender
