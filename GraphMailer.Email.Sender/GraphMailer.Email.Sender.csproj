@@ -5,7 +5,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>GraphMailer.Email.Sender</RootNamespace>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
 <!--        <PackageReadmeFile>../../README.md</PackageReadmeFile>-->
         <PackageId>GraphMailer</PackageId>
