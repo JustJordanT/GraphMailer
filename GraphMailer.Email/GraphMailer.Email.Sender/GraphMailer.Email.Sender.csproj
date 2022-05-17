@@ -8,6 +8,14 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>../../README.md</PackageReadmeFile>
+        <PackageId>GraphMailer</PackageId>
+        <Authors>JustJordanT</Authors>
+        <Description>GraphMailer; An minimal helper functions</Description>
+        <PackageTags>graphapi graph email</PackageTags>
+        <PackageProjectUrl>https://github.com/JustJordanT/GraphMailer</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/JustJordanT/GraphMailer</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>true</IncludeSymbols>
     </PropertyGroup>
 
     <ItemGroup>
