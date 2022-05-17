@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>GraphMailer.Email.Seader</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
