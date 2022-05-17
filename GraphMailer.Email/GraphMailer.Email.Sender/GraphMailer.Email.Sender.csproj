@@ -7,7 +7,7 @@
         <RootNamespace>GraphMailer.Email.Sender</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReadmeFile>../../README.md</PackageReadmeFile>
+<!--        <PackageReadmeFile>../../README.md</PackageReadmeFile>-->
         <PackageId>GraphMailer</PackageId>
         <Authors>JustJordanT</Authors>
         <Description>GraphMailer; An minimal helper functions</Description>
