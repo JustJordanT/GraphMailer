@@ -2,8 +2,7 @@ name: "Deploy to NuGet"
 
 on:
   push:
-    tags:
-    - 'v*'
+   branches: master
 
 env:
   PROJECT_PATH: 'GraphMailer/GraphMailer.Email.csproj'
