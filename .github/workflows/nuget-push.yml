@@ -16,10 +16,10 @@ jobs:
         dotnet-version: 6.0.*
     - name: PWD
       run: pwd
-    - name: change dir
-      run: cd /home/runner/work/GraphMailer/GraphMailer/GraphMailer.Email
     - name: Install dependencies
       run: dotnet restore
+    - name: change dir
+      run: cd /home/runner/work/GraphMailer/GraphMailer/GraphMailer.Email
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Publish GraphMailer.Email
