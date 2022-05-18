@@ -53,6 +53,6 @@ jobs:
         
     - name: Push
       run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
-        #run: dotnet nuget push ./output/*.nupkg --skip-duplicate -k ${secrets.NUGET_API_KEY} -s https://nuget.pkg.github.com/index.json
+        #run: dotnet nuget push ./output/*.nupkg --skip-duplicate -s https://nuget.pkg.github.com/index.json -k ${secrets.NUGET_API_KEY}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
