@@ -15,11 +15,11 @@ namespace GraphMailer.Email.Sender;
 public class EmailTester
 {
 	public static async Task SendGraphMail(string toEmail, string subject,
-		string bodyContent, string tenentId, string clientId, string clientSecret, string fromUserId , string[] scope)
+		string bodyContent, string tenantId, string clientId, string clientSecret, string fromUserId , string[] scope)
 	{
 		try
 		{
-			var tenentID = tenentId;
+			var tenentID = tenantId;
 			
 			var message = new Message
 			{
@@ -54,18 +54,36 @@ public class EmailTester
 				.ExecuteAsync().ConfigureAwait(false);
 
 			var token = authResult.AccessToken;
-			// Build the Microsoft Graph client. As the authentication provider, set an async lambda
-			// which uses the MSAL client to obtain an app-only access token to Microsoft Graph,
-			// and inserts this access token in the Authorization header of each API request. 
-			var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider((requestMessage) => {
-				requestMessage
-					.Headers
-					.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			
+			var cca = ConfidentialClientApplicationBuilder
+				.Create(clientId)
+				.WithTenantId(tenantId)
+				.WithClientSecret(clientSecret)
+				.Build();
+			
+			// // Build the Microsoft Graph client. As the authentication provider, set an async lambda
+			// // which uses the MSAL client to obtain an app-only access token to Microsoft Graph,
+			// // and inserts this access token in the Authorization header of each API request. 
+			// var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider((requestMessage) => {
+			// 	requestMessage
+			// 		.Headers
+			// 		.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//
+			// 	return Task.CompletedTask;
+			// }));
+			
+			var authProvider = new DelegateAuthenticationProvider(async (request) => {
+				// Use Microsoft.Identity.Client to retrieve token
+				var assertion = new UserAssertion(token);
+				var result = await cca.AcquireTokenOnBehalfOf(scope, assertion).ExecuteAsync();
 
-				return Task.CompletedTask;
-			}));
+				request.Headers.Authorization =
+					new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", result.AccessToken);
+			});
 
-			await graphServiceClient.Users[fromUserId]
+			var graphClient = new GraphServiceClient(authProvider);
+			
+			await graphClient.Users[fromUserId]
 				.SendMail(message, false)
 				.Request()
 				.PostAsync();

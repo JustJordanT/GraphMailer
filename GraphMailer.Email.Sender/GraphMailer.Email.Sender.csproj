@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+<!--        <TargetFramework>net6.0</TargetFramework>-->
+        <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>GraphMailer.Email.Sender</RootNamespace>
@@ -15,12 +16,13 @@
         <RepositoryUrl>https://github.com/JustJordanT/GraphMailer</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>true</IncludeSymbols>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Azure.Identity" Version="1.6.0" />
       <PackageReference Include="Microsoft.Graph" Version="4.28.0" />
-        <None Include="../readme.md" Pack="true" PackagePath=""/>
+        <None Include="../readme.md" Pack="true" PackagePath="" />
       <PackageReference Include="Microsoft.Office.Interop.Outlook" Version="15.0.4797.1003" />
     </ItemGroup>
 </Project>
