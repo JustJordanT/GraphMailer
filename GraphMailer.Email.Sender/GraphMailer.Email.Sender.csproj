@@ -20,7 +20,7 @@
     <ItemGroup>
       <PackageReference Include="Azure.Identity" Version="1.6.0" />
       <PackageReference Include="Microsoft.Graph" Version="4.28.0" />
-        <None Include="../README.md" Pack="true" PackagePath=""/>
+        <None Include="../readme.md" Pack="true" PackagePath=""/>
       <PackageReference Include="Microsoft.Office.Interop.Outlook" Version="15.0.4797.1003" />
     </ItemGroup>
 </Project>
