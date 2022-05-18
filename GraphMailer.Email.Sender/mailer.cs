@@ -1,26 +1,15 @@
 using System.Net.Http.Headers;
-using Azure.Identity;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
-// using Microsoft.Graph.Auth;
-using Microsoft.Identity.Client;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-
 
 namespace GraphMailer.Email.Sender;
 
 public class mailer
 {
-    public static async Task mailSender(string toEmail, string subject,
+    public async Task mailSender(string toEmail, string subject,
         string bodyContent, string tenantId, string clientId, string clientSecret, string fromUserId , string[] scope)
     {
-//         string tenantId = "Your tenantId copied from 1st step";
-//         string clientId = "Your clientid copied from 1st step";
-//         string clientSecret = "Your client secret copied from 1st step";
-//         string userId = "User Object Id or GUID copied from Step 2";
-// //The following scope is required to acquire the token
-//         string[] scopes = new string[] { "https://graph.microsoft.com/.default" };
-        
+
         var message = new Message
         {
             Subject = subject,
