@@ -33,7 +33,7 @@ jobs:
 
 
         #    - name: Publish
-        #run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+        #run: dotnet nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
         #
     - name: 'Restore packages'
       run: dotnet restore
@@ -52,7 +52,8 @@ jobs:
       run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{ steps.bump_version.outputs.new_tag }} 
         
     - name: Push
-      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
-        #run: dotnet nuget push ./output/*.nupkg --skip-duplicate -s https://nuget.pkg.github.com/index.json -k ${secrets.NUGET_API_KEY}
+      run: dotnet nuget push **\*.nupkg --source 'https://api.nuget.org/v3/index.json' --api-key ${{secrets.NUGET_API_KEY}}
+#      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }}
+#      run: dotnet nuget push ./output/*.nupkg --skip-duplicate -s https://nuget.pkg.github.com/index.json -k ${secrets.NUGET_API_KEY}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
