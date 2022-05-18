@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  PROJECT_PATH: 'GraphMailer.Email.Sender.csproj'
+  PROJECT_PATH: 'GraphMailer.Email.Sender/GraphMailer.Email.Sender.csproj'
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
   NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
@@ -36,7 +36,7 @@ jobs:
         #run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
         #
     - name: 'Restore packages'
-      run: dotnet restore ${{ env.PROJECT_PATH }}
+      run: dotnet restore
 
     - name: 'Build project'
       run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
